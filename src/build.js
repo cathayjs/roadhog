@@ -2,13 +2,13 @@ import chalk from 'chalk';
 import fs from 'fs-extra';
 import path from 'path';
 import filesize from 'filesize';
-import { sync as gzipSize } from 'gzip-size';
+import {sync as gzipSize} from 'gzip-size';
 import webpack from 'webpack';
 import recursive from 'recursive-readdir';
 import stripAnsi from 'strip-ansi';
 import getPaths from './config/paths';
 import getConfig from './utils/getConfig';
-import applyWebpackConfig, { warnIfExists } from './utils/applyWebpackConfig';
+import applyWebpackConfig, {warnIfExists} from './utils/applyWebpackConfig';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
@@ -78,7 +78,10 @@ export function build(argv) {
 
       // Remove all content but keep the directory so that
       // if you're in it, you don't end up in Trash
-      fs.emptyDirSync(appBuild);
+
+      if (!process.env.RH_SKIP_CLEAR) {
+        fs.emptyDirSync(appBuild);
+      }
 
       // Start the webpack build
       realBuild(previousSizeMap, resolve, argv);
@@ -203,5 +206,5 @@ function realBuild(previousSizeMap, resolve, argv) {
 
 // Run.
 if (require.main === module) {
-  build({ ...argv, cwd: process.cwd() });
+  build({...argv, cwd: process.cwd()});
 }
