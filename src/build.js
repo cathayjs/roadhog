@@ -2,13 +2,13 @@ import chalk from 'chalk';
 import fs from 'fs-extra';
 import path from 'path';
 import filesize from 'filesize';
-import {sync as gzipSize} from 'gzip-size';
+import { sync as gzipSize } from 'gzip-size';
 import webpack from 'webpack';
 import recursive from 'recursive-readdir';
 import stripAnsi from 'strip-ansi';
 import getPaths from './config/paths';
 import getConfig from './utils/getConfig';
-import applyWebpackConfig, {warnIfExists} from './utils/applyWebpackConfig';
+import applyWebpackConfig, { warnIfExists } from './utils/applyWebpackConfig';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
@@ -206,5 +206,5 @@ function realBuild(previousSizeMap, resolve, argv) {
 
 // Run.
 if (require.main === module) {
-  build({...argv, cwd: process.cwd()});
+  build({ ...argv, cwd: process.cwd() });
 }
